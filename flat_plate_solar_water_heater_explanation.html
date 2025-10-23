@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Solar Water Heater Story</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', 'Segoe UI', Arial, sans-serif;
+            background: #1a1a2e;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .scene {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .scene-1 {
+            background: linear-gradient(to bottom, #87CEEB 0%, #FFD700 100%);
+        }
+
+        .scene-2 {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .scene-3 {
+            background: linear-gradient(to bottom, #2c3e50 0%, #3498db 100%);
+        }
+
+        .scene-4 {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .scene-5 {
+            background: linear-gradient(to bottom, #43cea2 0%, #185a9d 100%);
+        }
+
+        .scene-6 {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+
+        .content-box {
+            max-width: 900px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 50px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 10;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .title {
+            font-size: 3em;
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .subtitle {
+            font-size: 1.3em;
+            color: #7f8c8d;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .story-text {
+            font-size: 1.2em;
+            color: #34495e;
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #f093fb 0%, #f5576c 100%);
+            padding: 3px 10px;
+            border-radius: 5px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .big-emoji {
+            font-size: 5em;
+            text-align: center;
+            margin: 30px 0;
+            animation: gentleBounce 3s ease-in-out infinite;
+        }
+
+        @keyframes gentleBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .sun {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            top: 50px;
+            right: 50px;
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .sun::before {
+            content: '☀️';
+            font-size: 150px;
+            position: absolute;
+        }
+
+        .floating-numbers {
+            position: absolute;
+            font-size: 2em;
+            font-weight: bold;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .stat-bubble {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 20px;
+            margin: 10px;
+            font-size: 1.1em;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            animation: gentlePulse 3s ease-in-out infinite;
+        }
+
+        @keyframes gentlePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+        }
+
+        .journey-path {
+            position: relative;
+            margin: 40px 0;
+        }
+
+        .path-step {
+            display: flex;
+            align-items: center;
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .path-icon {
+            font-size: 4em;
+            margin-right: 20px;
+            filter: drop-shadow(3px 3px 5px rgba(0, 0, 0, 0.2));
+        }
+
+        .path-text {
+            flex: 1;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 20px;
+            border-radius: 15px;
+            border-left: 5px solid #667eea;
+            color: #2c3e50;
+            font-size: 1.1em;
+        }
+
+        .arrow-down {
+            text-align: center;
+            font-size: 3em;
+            color: #3498db;
+            margin: 10px 0;
+            animation: gentleSlide 2s ease-in-out infinite;
+        }
+
+        @keyframes gentleSlide {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(8px); }
+        }
+
+        .water-drop {
+            display: inline-block;
+            font-size: 2em;
+            animation: gentleDrip 2.5s ease-in-out infinite;
+        }
+        
+        .water-drop:nth-child(2) {
+            animation-delay: 0.3s;
+        }
+        
+        .water-drop:nth-child(3) {
+            animation-delay: 0.6s;
+        }
+
+        @keyframes gentleDrip {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(8px) scale(1.05); }
+        }
+
+        .temp-meter {
+            background: linear-gradient(to right, #3498db, #e74c3c);
+            height: 40px;
+            border-radius: 20px;
+            position: relative;
+            margin: 30px 0;
+            overflow: hidden;
+        }
+
+        .temp-marker {
+            position: absolute;
+            background: white;
+            width: 4px;
+            height: 50px;
+            top: -5px;
+            animation: slide 3s ease-in-out infinite;
+        }
+
+        @keyframes slide {
+            0% { left: 20%; }
+            50% { left: 80%; }
+            100% { left: 20%; }
+        }
+
+        .comic-panel {
+            background: white;
+            border: 5px solid #2c3e50;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px 0;
+            position: relative;
+            box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.2);
+        }
+
+        .speech-bubble {
+            background: white;
+            border: 3px solid #2c3e50;
+            border-radius: 20px;
+            padding: 20px;
+            position: relative;
+            margin: 20px;
+            color: #2c3e50;
+            font-size: 1.1em;
+            box-shadow: 3px 3px 0px rgba(0, 0, 0, 0.1);
+        }
+
+        .speech-bubble::before {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 30px;
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-top: 20px solid #2c3e50;
+        }
+
+        .speech-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -14px;
+            left: 33px;
+            width: 0;
+            height: 0;
+            border-left: 17px solid transparent;
+            border-right: 17px solid transparent;
+            border-top: 17px solid white;
+        }
+
+        .fact-card {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            border-radius: 20px;
+            padding: 25px;
+            margin: 20px 0;
+            border: 3px dashed #e67e22;
+            color: #2c3e50;
+        }
+
+        .fact-title {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #d63031;
+        }
+
+        .interactive-box {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .interactive-box:hover {
+            transform: scale(1.03) translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .number-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .number-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            transform: rotate(-1deg);
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .number-card:nth-child(even) {
+            transform: rotate(1deg);
+        }
+        
+        .number-card:hover {
+            transform: rotate(0deg) scale(1.05);
+        }
+
+        .number-huge {
+            font-size: 3em;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .scroll-hint {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 1.2em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            animation: gentleBounce 2.5s ease-in-out infinite;
+        }
+
+        .character {
+            font-size: 6em;
+            display: inline-block;
+            animation: gentleFloat 4s ease-in-out infinite;
+        }
+        
+        @keyframes gentleFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Scene 1: Introduction -->
+    <div class="scene scene-1">
+        <div class="sun"></div>
+        <div class="content-box">
+            <div class="big-emoji">☀️</div>
+            <h1 class="title">The Solar Water Heater</h1>
+            <p class="subtitle">Following Energy Through the System</p>
+            <div class="story-text">
+                Solar radiation hits our panel at 1000 W/m². Over the next few screens, we'll trace exactly what happens to that energy as it moves through the system and emerges as hot water.
+            </div>
+            <div class="story-text">
+                This is the path from photons to thermal energy.
+            </div>
+        </div>
+        <div class="scroll-hint">↓ Scroll to trace the energy path ↓</div>
+    </div>
+
+    <!-- Scene 2: The Arrival -->
+    <div class="scene scene-2">
+        <div class="content-box">
+            <div class="character">☀️</div>
+            <h2 class="title" style="font-size: 2.5em;">Stage 1: Energy Input</h2>
+            
+            <div class="speech-bubble">
+                The collector area is <strong>0.34 m²</strong> — compact enough for residential installation, large enough to capture meaningful power.
+            </div>
+            
+            <div class="story-text">
+                At 1000 W/m² irradiance, the panel intercepts <span class="highlight">341 watts</span> of solar power. That's roughly equivalent to three incandescent bulbs, but continuous and free.
+            </div>
+
+            <div class="fact-card">
+                <div class="fact-title">Context</div>
+                1000 W/m² is standard test condition irradiance — what you'd measure on a clear day with the sun directly overhead. Our system is sized for typical residential rooftop constraints.
+            </div>
+        </div>
+    </div>
+
+    <!-- Scene 3: Through the Windows -->
+    <div class="scene scene-3">
+        <div class="content-box">
+            <h2 class="title" style="font-size: 2.5em;">Stage 2: The Glazing System</h2>
+            
+            <div class="comic-panel">
+                <div class="path-step">
+                    <div class="path-icon">🔲</div>
+                    <div class="path-text">
+                        <strong>Outer Layer:</strong> UV-resistant polycarbonate. High impact resistance and optical clarity. Transmits most incident radiation while providing structural protection.
+                    </div>
+                </div>
+                
+                <div class="arrow-down">⬇️</div>
+                
+                <div class="path-step">
+                    <div class="path-icon">🌫️</div>
+                    <div class="path-text">
+                        <strong>Air Gap:</strong> 5mm of stagnant air provides thermal insulation. Low convection coefficient minimizes heat loss back to ambient.
+                    </div>
+                </div>
+                
+                <div class="arrow-down">⬇️</div>
+                
+                <div class="path-step">
+                    <div class="path-icon">🔲</div>
+                    <div class="path-text">
+                        <strong>Inner Layer:</strong> Second polycarbonate sheet. Combined transmissivity of <strong>85%</strong> — the double-layer trades some transmission for significant reduction in convective losses.
+                    </div>
+                </div>
+            </div>
+
+            <div class="interactive-box">
+                <div style="font-size: 2em; margin-bottom: 15px;">🛡️ + 🛡️</div>
+                <div style="color: #2c3e50; font-size: 1.2em; font-weight: bold;">
+                    Double-glazing: Trading 15% transmission for lower thermal losses
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scene 4: The Black Plate -->
+    <div class="scene scene-4">
+        <div class="content-box">
+            <h2 class="title" style="font-size: 2.5em;">Stage 3: The Absorber</h2>
+            
+            <div class="big-emoji">⬛</div>
+            
+            <div class="story-text">
+                The transmitted radiation hits a <span class="highlight">black-painted aluminum plate</span>. Material selection here is deliberate: black for maximum absorptivity, aluminum for thermal conductivity.
+            </div>
+
+            <div class="speech-bubble">
+                The black coating absorbs 80% of incident radiation. After accounting for glazing losses, the plate receives 232W of thermal input — this is where optical energy becomes heat.
+            </div>
+
+            <div class="number-showcase">
+                <div class="number-card">
+                    <div>Absorptivity</div>
+                    <div class="number-huge">80%</div>
+                    <div>α = 0.80</div>
+                </div>
+                <div class="number-card">
+                    <div>Net Thermal Input</div>
+                    <div class="number-huge">232W</div>
+                    <div>to the plate</div>
+                </div>
+            </div>
+
+            <div class="fact-card">
+                <div class="fact-title">Material Properties</div>
+                Black surfaces have high absorptivity across the visible spectrum. The aluminum substrate (k = 237 W/m·K) ensures uniform temperature distribution — preventing hot spots that would increase radiative losses.
+            </div>
+
+            <div class="story-text">
+                The 5mm aluminum plate spreads heat laterally before transferring it to the water channels. Thermal conductivity matters here.
+            </div>
+        </div>
+    </div>
+
+    <!-- Scene 5: The Copper Maze -->
+    <div class="scene scene-5">
+        <div class="content-box">
+            <h2 class="title" style="font-size: 2.5em;">Stage 4: Heat Exchange</h2>
+            
+            <div class="story-text">
+                Bonded to the plate's underside: <span class="highlight">8 parallel copper tubes</span> in a serpentine configuration. Copper (k = 399 W/m·K) ensures minimal thermal resistance between plate and fluid.
+            </div>
+
+            <div class="comic-panel">
+                <div class="path-text" style="margin-bottom: 20px; background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);">
+                    <strong>System Specifications:</strong><br>
+                    • 8 parallel channels for flow distribution<br>
+                    • 4.22 meters total tube length<br>
+                    • Type L copper tubing (3/8" diameter)<br>
+                    • Convection coefficient: 108 W/(m²·K)
+                </div>
+
+                <div class="story-text">
+                    Water enters at 25°C. As it flows through the heated tubes, convective heat transfer raises the bulk fluid temperature. Flow rate and residence time determine the temperature gain.
+                </div>
+
+                <div class="temp-meter">
+                    <div class="temp-marker"></div>
+                </div>
+                
+                <div style="text-align: center; color: #2c3e50; margin-top: 10px;">
+                    <strong>T<sub>in</sub> = 25°C → T<sub>out</sub> = 38.5°C</strong>
+                </div>
+            </div>
+
+            <div class="fact-card">
+                <div class="fact-title">Temperature Rise</div>
+                The 13.5°C increase represents the net heat transfer from plate to water. Higher flow rates would decrease ΔT but increase total energy transfer — there's an optimization curve here.
+            </div>
+
+            <div class="interactive-box">
+                <div class="water-drop">💧</div>
+                <div class="water-drop">💧</div>
+                <div class="water-drop">💧</div>
+                <div style="color: #2c3e50; margin-top: 15px;">
+                    Experimental flow rate: <strong>0.9 L/s</strong><br>
+                    Model mass flow: 0.015 kg/s
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scene 6: The Reservoir -->
+    <div class="scene scene-6">
+        <div class="content-box">
+            <h2 class="title" style="font-size: 2.5em;">Stage 5: Thermal Storage</h2>
+            
+            <div class="big-emoji">🪣</div>
+            
+            <div class="story-text">
+                Heated water collects in a <span class="highlight">7.06-liter reservoir</span>. With continuous circulation, the system reaches steady-state at 38.5°C — the point where heat input equals heat losses to ambient.
+            </div>
+
+            <div class="number-showcase">
+                <div class="number-card">
+                    <div>Reservoir Volume</div>
+                    <div class="number-huge">7.06</div>
+                    <div>Liters</div>
+                </div>
+                <div class="number-card">
+                    <div>Steady-State Temp</div>
+                    <div class="number-huge">38.5°C</div>
+                    <div>101°F</div>
+                </div>
+                <div class="number-card">
+                    <div>Net Heat to Reservoir</div>
+                    <div class="number-huge">169W</div>
+                    <div>After losses</div>
+                </div>
+            </div>
+
+            <div class="comic-panel">
+                <h3 style="color: #d63031; text-align: center; margin-bottom: 20px;">Heating Rate Analysis</h3>
+                
+                <div class="number-showcase" style="margin: 30px 0;">
+                    <div class="stat-bubble">
+                        <strong>0.29°C/min</strong>
+                    </div>
+                    <div class="stat-bubble">
+                        <strong>17.2°C/hour</strong>
+                    </div>
+                    <div class="stat-bubble">
+                        <strong>0.0048 K/s</strong>
+                    </div>
+                </div>
+
+                <div class="fact-card">
+                    <div class="fact-title">Calculation (with heat losses)</div>
+                    The system delivers:<br>
+                    • Q<sub>in</sub> = 190.9 W (heat input to water)<br>
+                    • Q<sub>out</sub> = 22.4 W (heat loss to ambient)<br>
+                    • Net heat = 168.5 W<br><br>
+                    
+                    dT/dt = (Q<sub>in</sub> - Q<sub>out</sub>) / (m × c<sub>p</sub>)<br>
+                    = 168.5 W / (7.06 kg × 4182 J/kg·K)<br>
+                    = 0.0057 K/s (theoretical)<br>
+                    = 0.0048 K/s (from numerical model)
+                    
+                    <div style="margin-top: 15px; font-size: 0.95em; background: rgba(255,255,255,0.5); padding: 10px; border-radius: 5px;">
+                        <strong>Note:</strong> Heating rate decreases over time as the reservoir approaches steady-state (38.5°C), since heat losses increase with temperature.
+                    </div>
+                </div>
+            </div>
+
+            <div class="interactive-box" style="background: linear-gradient(135deg, #43cea2 0%, #185a9d 100%); color: white;">
+                <div style="font-size: 2.5em; margin-bottom: 15px;">♻️</div>
+                <div style="font-size: 1.3em; font-weight: bold; margin-bottom: 10px;">
+                    Continuous Operation
+                </div>
+                <div style="font-size: 1.1em;">
+                    Water circulates through the system in a closed loop. As long as solar irradiance remains constant, the reservoir maintains steady-state temperature with ongoing thermal input.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Final Scene: Summary -->
+    <div class="scene scene-1">
+        <div class="content-box" style="max-width: 1000px;">
+            <h2 class="title">System Overview</h2>
+            
+            <div class="story-text" style="text-align: center; font-size: 1.3em;">
+                From solar irradiance to thermal storage — the complete energy conversion pathway.
+            </div>
+
+            <div class="journey-path" style="background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); padding: 30px; border-radius: 20px; margin-top: 30px;">
+                <h3 style="color: #2c3e50; text-align: center; margin-bottom: 30px; font-size: 1.8em;">Energy Flow Through System</h3>
+                
+                <div class="path-step">
+                    <div class="path-icon">☀️</div>
+                    <div class="path-text">
+                        <strong>Solar Input:</strong> 341W incident power (1000 W/m² × 0.34 m²)
+                    </div>
+                </div>
+
+                <div class="arrow-down">↓</div>
+
+                <div class="path-step">
+                    <div class="path-icon">🔲</div>
+                    <div class="path-text">
+                        <strong>Glazing Transmission:</strong> 85% transmissivity through double polycarbonate layers
+                    </div>
+                </div>
+
+                <div class="arrow-down">↓</div>
+
+                <div class="path-step">
+                    <div class="path-icon">⬛</div>
+                    <div class="path-text">
+                        <strong>Absorption:</strong> 232W thermal input to black aluminum plate (α = 0.80)
+                    </div>
+                </div>
+
+                <div class="arrow-down">↓</div>
+
+                <div class="path-step" style="padding-left: 0;">
+                    <div class="path-text" style="margin-left: 0;">
+                        <strong>Heat Transfer:</strong> Copper tubes (k = 399 W/m·K) transfer heat to flowing water
+                    </div>
+                </div>
+
+                <div class="arrow-down">↓</div>
+
+                <div class="path-step">
+                    <div class="path-icon">🪣</div>
+                    <div class="path-text">
+                        <strong>Storage:</strong> 7.06L reservoir reaches steady-state at 38.5°C
+                    </div>
+                </div>
+            </div>
+
+            <div class="interactive-box" style="margin-top: 40px; background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white;">
+                <div style="font-size: 2em; margin-bottom: 20px;">⚡</div>
+                <div style="font-size: 1.5em; font-weight: bold; margin-bottom: 15px;">
+                    Passive Solar Thermal System
+                </div>
+                <div style="font-size: 1.2em;">
+                    191W delivered to water, 22W lost to ambient → 169W net heating of reservoir. The system reaches steady-state at 38.5°C when heat input balances heat losses. Zero fuel consumption, zero emissions.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Add smooth scroll behavior
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.interactive-box').forEach(box => {
+                box.addEventListener('click', function() {
+                    this.style.transform = 'scale(0.95) rotate(0deg)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 200);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
